@@ -1,0 +1,22 @@
+# Bỏ qua môi trường ảo (vì máy ai người nấy tự cài)
+venv/
+env/
+
+# Bỏ qua các file cache của Python sinh ra
+__pycache__/
+*.pyc
+
+# TUYỆT ĐỐI KHÔNG ĐẨY MẬT KHẨU LÊN MẠNG
+.env
+
+# Bỏ qua thư mục chứa dữ liệu thô (Tránh làm nặng GitHub)
+data/raw/*
+data/clean/*
+!data/raw/.gitkeep
+!data/clean/.gitkeep
+
+# Bỏ qua file log
+logs/*.log
+
+# Các file ẩn của macOS (Máy Mac của bạn hay sinh ra file này)
+.DS_Store

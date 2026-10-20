@@ -3,48 +3,29 @@
 # =========================
 # PIPELINE LOG
 # =========================
-pipeline_log_query = '''
-INSERT INTO pipeline_log(
-    run_id,
-    job_name,
-    status
-)
-VALUES(%s,%s,%s)
-'''
+pipeline_log_query = """
+    INSERT INTO pipeline_log 
+    (run_id, store_id, gold_type_id, job_name, step, status, message, start_time, end_time, source_url, date_key) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+"""
 
 # =========================
 # WEB RESPONSES
 # =========================
-web_response_query = '''
-INSERT INTO web_responses(
-    run_id,
-    store_id,
-    response_code,
-    response_body,
-    status,
-    source_url,
-    retry_count
-)
-VALUES (%s,%s,%s,%s,%s,%s,%s)
-'''
+web_response_query = """
+    INSERT INTO web_responses 
+    (run_id, store_id, response_code, response_body, status, source_url, retry_count) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+"""
 
 # =========================
 # ERROR LOG
 # =========================
-error_log_query = '''
-INSERT INTO error_log(
-    run_id,
-    raw_id,
-    store_id,
-    gold_type_id,
-    job_name,
-    error_type,
-    error_message,
-    stack_trace,
-    source_url
-)
-VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
-'''
+error_log_query = """
+    INSERT INTO error_log 
+    (run_id, raw_id, store_id, gold_type_id, job_name, error_type, error_message, stack_trace, source_url) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+"""
 
 # ==========================
 # GET WEB RESPONSE 

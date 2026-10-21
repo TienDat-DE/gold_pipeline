@@ -34,9 +34,13 @@ class BaseCrawlerOOP:
             sys.exit(1)
             
         fmt_date = f"{args.date[6:8]}/{args.date[4:6]}/{args.date[0:4]}"
-        run_id = f"{args.date}_{self.job_name}"
-        date_key = int(args.date) # VD: 20260420
-        return fmt_date, run_id, date_key
+        
+        # Thêm giờ phút giây (vd: 103121) vào đuôi để tạo mã duy nhất cho mỗi lần bấm chạy
+        time_suffix = datetime.now().strftime('%H%M%S')
+        run_id = f"OOP_{args.date}_{self.job_name}_{time_suffix}" 
+        
+        date_key = int(args.date) 
+        return fmt_date, run_id, date_key       
 
     def log_pipeline(self, status, message=""):
         # CHUẨN HÓA THAM SỐ CHO BẢNG pipeline_log

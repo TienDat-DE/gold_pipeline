@@ -4,8 +4,8 @@ import argparse
 import logging
 from database.oop_connection import DatabaseManagerOOP
 
-from clean.sites.btmc.oop_btmc_cleaner import BtmcCleanerOOP
-from clean.sites.btmc.oop_btmc_normalizer import BtmcNormalizerOOP
+from clean.sites.BTMC.oop_btmc_cleaner import BtmcCleanerOOP
+from clean.sites.BTMC.oop_btmc_normalizer import BtmcNormalizerOOP
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 

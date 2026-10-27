@@ -11,9 +11,10 @@ from database.queries import web_response_query, pipeline_log_query, error_log_q
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class BaseCrawlerOOP:
-    def __init__(self, job_name, store_id, api_url):
+    def __init__(self, job_name, store_id, store_name, api_url):
         self.job_name = job_name
         self.store_id = store_id
+        self.store_name = store_name  # Bổ sung tên cửa hàng (vd: BTMC) để tạo run_id
         self.api_url = api_url
         self.db = DatabaseManagerOOP()
         
@@ -35,28 +36,25 @@ class BaseCrawlerOOP:
             
         fmt_date = f"{args.date[6:8]}/{args.date[4:6]}/{args.date[0:4]}"
         
-        # Thêm giờ phút giây (vd: 103121) vào đuôi để tạo mã duy nhất cho mỗi lần bấm chạy
-        time_suffix = datetime.now().strftime('%H%M%S')
-        run_id = f"OOP_{args.date}_{self.job_name}_{time_suffix}" 
+        # ĐỊNH DẠNG RUN_ID CHUẨN: YYYYMMDD_STORE (vd: 20261027_BTMC)
+        run_id = f"{args.date}_{self.store_name}" 
         
         date_key = int(args.date) 
         return fmt_date, run_id, date_key       
 
     def log_pipeline(self, status, message=""):
-        # CHUẨN HÓA THAM SỐ CHO BẢNG pipeline_log
-        # Sơ đồ: run_id, store_id, gold_type_id, job_name, step, status, message, start_time, end_time, source_url, date_key
         values = (
-            self.run_id,          # run_id
-            self.store_id,        # store_id
-            None,                 # gold_type_id (Crawler cào chung nên chưa phân loại)
-            self.job_name,        # job_name
-            'crawl',              # step
-            status,               # status (success/fail/running)
-            message,              # message
-            datetime.now(),       # start_time
-            None,                 # end_time (để trống khi mới start)
-            self.api_url,         # source_url
-            self.date_key         # date_key
+            self.run_id,          
+            self.store_id,        
+            None,                 
+            self.job_name,        
+            'crawl',              
+            status,               
+            message,              
+            datetime.now(),       
+            None,                 
+            self.api_url,         
+            self.date_key         
         )
         self.db.execute_query(pipeline_log_query, values)
 
@@ -79,32 +77,30 @@ class BaseCrawlerOOP:
         params, actual_url = self.build_request_params()
         status_code, body, status, retries = self.fetch_data(params)
         
-        # CHUẨN HÓA THAM SỐ CHO BẢNG web_responses
-        # Sơ đồ: run_id, store_id, response_code, response_body, status, source_url, retry_count
+        # CHUẨN HÓA DỮ LIỆU ĐỂ LƯU VÀO web_responses
+        # Bỏ qua created_at để MySQL tự động dùng CURRENT_TIMESTAMP theo đúng thiết kế
         web_values = (
-            self.run_id,          # run_id
-            self.store_id,        # store_id
-            status_code,          # response_code
-            body,                 # response_body
-            status,               # status
-            actual_url,           # source_url
+            self.run_id,          # run_id (vd: 20261027_BTMC)
+            self.store_id,        # store_id (vd: 1)
+            status_code,          # response_code (vd: 200)
+            body,                 # response_body (HTML string)
+            status,               # status ('success')
+            actual_url,           # source_url (có chứa encode %2F)
             retries               # retry_count
         )
         self.db.execute_query(web_response_query, web_values)
         
         if status == 'fail':
-            # CHUẨN HÓA THAM SỐ CHO BẢNG error_log
-            # Sơ đồ: run_id, raw_id, store_id, gold_type_id, job_name, error_type, error_message, stack_trace, source_url
             err_values = (
-                self.run_id,      # run_id
-                None,             # raw_id (Chưa có vì cào mạng xịt)
-                self.store_id,    # store_id
-                None,             # gold_type_id
-                self.job_name,    # job_name
-                'network',        # error_type (Dựa theo sơ đồ)
-                'Mất kết nối mạng hoặc bị WAF chặn', # error_message
-                '',               # stack_trace
-                actual_url        # source_url
+                self.run_id,      
+                None,             
+                self.store_id,    
+                None,             
+                self.job_name,    
+                'network',        
+                'Mất kết nối mạng hoặc bị WAF chặn', 
+                '',               
+                actual_url        
             )
             self.db.execute_query(error_log_query, err_values)
             self.log_pipeline('fail', 'Lỗi mạng')

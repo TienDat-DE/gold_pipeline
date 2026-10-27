@@ -1,0 +1,14 @@
+# 1. Web Scraping (Tầng Crawler)
+requests
+beautifulsoup4
+tls-client
+
+# 2. Database (Tầng Hạ tầng)
+pymysql
+
+# 3. Môi trường & Bảo mật (Tầng Config)
+python-dotenv
+
+# 4. Data Processing & Export (Tầng Xuất dữ liệu)
+pandas
+pyarrow

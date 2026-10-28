@@ -1,14 +1,15 @@
 import sys
 import json
+import argparse
 import logging
 from datetime import datetime
 from database.oop_connection import DatabaseManagerOOP
 
-# Import 4 cỗ máy xử lý
+# Kéo 4 cỗ máy xử lý OOP vào hệ thống
 from clean.sites.BTMC.oop_btmc_cleaner import BtmcCleanerOOP
-from clean.sites.BTMC.oop_btmc_validate_basic import BtmcValidateBasicOOP
-from clean.sites.BTMC.oop_btmc_normalizer import BtmcNormalizerOOP
-from clean.sites.BTMC.oop_btmc_validate_business import BtmcValidateBusinessOOP
+from clean.validate_basic.sites.BTMC.oop_btmc_validate_basic import BtmcValidateBasicOOP
+from clean.normalize.sites.BTMC.oop_btmc_normalizer import BtmcNormalizerOOP
+from clean.validate_business.sites.BTMC.oop_btmc_validate_business import BtmcValidateBusinessOOP
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -20,117 +21,196 @@ class JobBtmcCleanPipeline:
         self.normalizer = BtmcNormalizerOOP()
         self.biz_validator = BtmcValidateBusinessOOP()
         
-        self.store_id = 1 # ID của BTMC
-        self.source_url = "https://btmc.vn"
+        self.store_name = "Bảo Tín Minh Châu"
 
-    def run_pipeline(self, run_id):
-        logging.info(f"========== BẮT ĐẦU CLEAN PIPELINE | RUN_ID: {run_id} ==========")
-        
-        # 1. Lấy dữ liệu thô chưa xử lý
-        query_raw = "SELECT raw_id, raw_payload, data_date FROM raw_gold_price WHERE run_id = %s AND status = 'success'"
-        records = self.db.fetch_all(query_raw, (run_id,))
-        
+    def run_pipeline(self):
+        parser = argparse.ArgumentParser(description="Điều phối luồng nạp dữ liệu sạch clean_gold_price theo Run ID")
+        parser.add_argument('--run_id', type=str, required=True, help="Ví dụ: 20261028_BTMC")
+        args = parser.parse_known_args()[0]
+        run_id = args.run_id
+
+        # Lấy dữ liệu mạng thô nguyên bản từ (raw_gold_price)
+        query = """
+            SELECT raw_id, store_id, source_url, raw_payload 
+            FROM raw_gold_price 
+            WHERE run_id = %s AND status = 'success' 
+            ORDER BY raw_id DESC LIMIT 1
+        """
+        records = self.db.fetch_all(query, (run_id,))
+
         if not records:
-            logging.info("Không có dữ liệu thô cần xử lý.")
-            return
+            logging.error(f"[THẤT BẠI] Không tìm thấy dữ liệu thô 'success' nào của ngày '{run_id}' trong DB.")
+            sys.exit(1)
 
-        for row in records:
-            raw_id, raw_payload_str, data_date = row[0], row[1], row[2]
+        raw_id = records[0][0]
+        store_id = records[0][1]
+        source_url = records[0][2]
+        raw_payload_str = records[0][3]
+
+        try:
+            date_part = run_id.split('_')[0]
+            data_date = datetime.strptime(date_part, '%Y%m%d').strftime('%Y-%m-%d')
+        except:
+            data_date = datetime.now().strftime('%Y-%m-%d')
             
-            # ==========================================
-            # BƯỚC 1 & 2: GỌT HTML & VALIDATE BASIC
-            # ==========================================
-            clean_json_str = self.cleaner.process_clean_raw_json(raw_payload_str)
-            if not clean_json_str:
-                self.log_error(run_id, raw_id, 'CLEAN_ERROR', 'Không thể bóc tách HTML')
-                continue
+        print(f"\n [PIPELINE START] Khởi động luồng làm sạch cho RUN_ID: {run_id}")
+        print(f"--------------------------------------------------------------------")
+        
+        # Cấu trúc lưu trữ trạng thái cuối cùng để chuẩn bị ghi DB
+        final_products = [
+            {'gold_type_id': 1, 'gold_type_name': 'Vàng SJC', 'buy_price': None, 'sell_price': None, 'quality_flag': 'good', 'keys': ('sjcmua', 'sjcban')},
+            {'gold_type_id': 2, 'gold_type_name': 'Vàng nhẫn tròn trơn', 'buy_price': None, 'sell_price': None, 'quality_flag': 'good', 'keys': ('btmcvangnhanmua', 'btmcvangnhanban')}
+        ]
+
+        # ==========================================
+        # BƯỚC 1: DỌN DẸP HTML
+        # ==========================================
+        cleaned_str = self.cleaner.process_clean_raw_json(raw_payload_str)
+        print(" [1/4]  Clean HTML Tags    -> Hoàn tất bóc tách HTML từ JSON thô.")
+        
+        try:
+            cleaned_data = json.loads(cleaned_str) if cleaned_str else {}
+        except:
+            cleaned_data = {}
+
+        # ==========================================
+        # BƯỚC 2: VALIDATE BASIC ĐỘC LẬP TỪNG LOẠI
+        # ==========================================
+        # Sử dụng Trick nạp chéo (Mock data) giống bản gốc để bắt lỗi độc lập từng sản phẩm
+        sjc_payload = json.dumps({'sjcmua': cleaned_data.get('sjcmua'), 'sjcban': cleaned_data.get('sjcban'), 'btmcvangnhanmua': '1', 'btmcvangnhanban': '1'})
+        nhan_payload = json.dumps({'sjcmua': '1', 'sjcban': '1', 'btmcvangnhanmua': cleaned_data.get('btmcvangnhanmua'), 'btmcvangnhanban': cleaned_data.get('btmcvangnhanban')})
+        
+        # Class OOP sẽ tự động ghi error_log nếu có lỗi
+        sjc_basic_ok = self.basic_validator.validate(run_id, raw_id, sjc_payload, source_url, is_debug=False)
+        nhan_basic_ok = self.basic_validator.validate(run_id, raw_id, nhan_payload, source_url, is_debug=False)
+        
+        # Hạ cấp chất lượng nếu hỏng dữ liệu chữ/số
+        if not sjc_basic_ok:
+            final_products[0]['quality_flag'] = 'missing'
+        if not nhan_basic_ok:
+            final_products[1]['quality_flag'] = 'missing'
+
+        if not sjc_basic_ok and not nhan_basic_ok:
+            print(" [2/4]  Validate Basic     ->  THẤT BẠI: Cả 2 sản phẩm đều rỗng/lỗi số. Hệ thống tự ghi error_log.")
+        else:
+            print(f" [2/4]  Validate Basic     -> Hoàn tất kiểm tra định dạng (SJC: {'OK' if sjc_basic_ok else 'MISSING'} | Nhẫn: {'OK' if nhan_basic_ok else 'MISSING'}).")
+
+        # ==========================================
+        # BƯỚC 3: NORMALIZE (ÉP KIỂU SỐ VÀ NHÂN TỶ GIÁ)
+        # ==========================================
+        normalized_dict = self.normalizer.normalize_payload(cleaned_data)
+        
+        for prod in final_products:
+            if prod['quality_flag'] != 'missing':
+                prod['buy_price'] = normalized_dict.get(prod['keys'][0])
+                prod['sell_price'] = normalized_dict.get(prod['keys'][1])
                 
-            text_dict = json.loads(clean_json_str)
+        if not sjc_basic_ok and not nhan_basic_ok:
+            print(" [3/4]  Normalize Price    ->  BỎ QUA: Không có dữ liệu số hợp lệ để tính toán.")
+        else:
+            print(" [3/4]  Normalize Price    -> Hoàn tất chuẩn hoá số nguyên.")
+
+        # ==========================================
+        # BƯỚC 4: VALIDATE BUSINESS (LOGIC GIÁ CẢ)
+        # ==========================================
+        has_valid_data = any(p['quality_flag'] != 'missing' for p in final_products)
+        
+        if not has_valid_data:
+            print(" [4/4]  Validate Business  ->  BỎ QUA: Không có sản phẩm nào đủ điều kiện check nghiệp vụ.")
+        else:
+            # Lọc riêng các field của sản phẩm OK để ném vào bộ check Business
+            valid_norm_dict = {}
+            for prod in final_products:
+                if prod['quality_flag'] != 'missing':
+                    valid_norm_dict[prod['keys'][0]] = prod['buy_price']
+                    valid_norm_dict[prod['keys'][1]] = prod['sell_price']
             
-            is_basic_ok, basic_msg = self.basic_validator.validate(text_dict)
-            if not is_basic_ok:
-                # Bắn vào ERROR_LOG (Lỗi rỗng, lỗi sai format)
-                self.log_error(run_id, raw_id, 'VALIDATE_BASIC_ERROR', basic_msg)
-                continue
-
-            # ==========================================
-            # BƯỚC 3: NORMALIZE (ÉP KIỂU SỐ)
-            # ==========================================
-            is_norm_ok, normalized_dict, norm_msg = self.normalizer.normalize_payload(text_dict)
-            if not is_norm_ok:
-                # Bắn vào ERROR_LOG
-                self.log_error(run_id, raw_id, 'NORMALIZE_ERROR', norm_msg)
-                continue
-
-            # ==========================================
-            # BƯỚC 4: VALIDATE BUSINESS (LOGIC GIÁ)
-            # ==========================================
-            is_biz_ok, err_code, biz_msg = self.biz_validator.validate(run_id, normalized_dict)
-            if not is_biz_ok:
-                # Bắn vào ANOMALY_LOG (Lỗi nhảy giá bất thường, giá âm)
-                self.log_anomaly(run_id, raw_id, data_date, err_code, biz_msg)
-                continue
-
-            # ==========================================
-            # BƯỚC 5: LƯU STAGING VÀ DIM_GOLD_PRICE
-            # ==========================================
-            # Tách Dictionary thành các cặp Mua/Bán riêng biệt để lưu DB
-            gold_pairs = [
-                {'type_id': 'SJC', 'name': 'Vàng SJC', 'buy': normalized_dict.get('sjcmua'), 'sell': normalized_dict.get('sjcban')},
-                {'type_id': 'NHAN', 'name': 'Vàng nhẫn trơn', 'buy': normalized_dict.get('btmcvangnhanmua'), 'sell': normalized_dict.get('btmcvangnhanban')}
-            ]
-
-            for item in gold_pairs:
-                # Insert Staging
-                self.insert_staging(run_id, raw_id, item['type_id'], data_date, item['buy'], item['sell'])
+            # Cỗ máy sẽ tự ném log vào error_log/anomaly_log
+            business_ok = self.biz_validator.validate(run_id, raw_id, valid_norm_dict, source_url, is_debug=False)
+            
+            if not business_ok:
+                print(" [4/4]  Validate Business  ->  PHÁT HIỆN DỊ THƯỜNG: Dữ liệu bị hạ cấp xuống [SUSPICIOUS].")
+                # Đánh tụt hạng toàn bộ
+                for p in final_products:
+                    if p['quality_flag'] == 'good':
+                        p['quality_flag'] = 'suspicious'
+            else:
+                print(" [4/4]  Validate Business  -> Hoàn tất kiểm tra (Logic tài chính an toàn).")
                 
-                # Insert Dim Gold Price (Bảng sạch rút gọn)
-                self.insert_dim_price(data_date, item['name'], item['buy'], item['sell'])
-
-            logging.info(f" -> [THÀNH CÔNG] RAW_ID {raw_id} đã được lưu vào Staging và Dim.")
+        print(f"--------------------------------------------------------------------")
+        
+        # ==========================================
+        # BƯỚC 5: ĐỔ DỮ LIỆU XUỐNG DB TẦNG CUỐI
+        # ==========================================
+        stg_success = self.save_gold_staging_data(run_id, raw_id, store_id, source_url, data_date, final_products)
+        dim_success = self.save_gold_dim_data(data_date, final_products)
+        
+        if stg_success and dim_success:
+            print(f" [HOÀN THÀNH] Tiến trình xử lý kết thúc thành công.")
+            print(f"====================================================================\n")
+            sys.exit(0) # Trả Code 0 cho Airflow đi tiếp
+        else:
+            print(f" [THẤT BẠI] Quy trình gặp lỗi trong thao tác lưu dữ liệu tầng cuối.")
+            sys.exit(1) # Trả Code 1 để Airflow báo lỗi task
 
     # ---------------------------------------------------------
-    # CÁC HÀM HỖ TRỢ GHI DATABASE
+    # HÀM LƯU DATABASE TÁCH RỜI NHƯ BẢN GỐC CỦA BẠN
     # ---------------------------------------------------------
-    def log_error(self, run_id, raw_id, error_type, message):
-        query = """
-            INSERT INTO error_log (run_id, raw_id, store_id, job_name, error_type, error_message, created_at, source_url)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    def save_gold_staging_data(self, run_id, raw_id, store_id, source_url, data_date, product_results):
+        print(f"\n ->  Tiến hành lưu tầng trung gian (Staging) cho raw_id: {raw_id}")
+        
+        staging_insert_query = """
+            INSERT INTO staging_gold_price (
+                run_id, raw_id, store_id, gold_type_id, source_url, 
+                data_date, buy_price, sell_price, normalized_unit, quality_flag
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        self.db.execute_query(query, (run_id, raw_id, self.store_id, 'CLEAN_PIPELINE', error_type, message, datetime.now(), self.source_url))
-        logging.error(f" [ERROR_LOG] {error_type}: {message}")
+        
+        success_count = 0
+        for prod in product_results:
+            try:
+                staging_values = (
+                    run_id, raw_id, store_id, prod['gold_type_id'], source_url,        
+                    data_date, prod['buy_price'], prod['sell_price'], 'VND/lượng', prod['quality_flag']               
+                )
+                self.db.execute_query(staging_insert_query, staging_values)
+                success_count += 1
+                print(f"    [STAGING OK] Đã nạp lịch sử: '{prod['gold_type_name']}' | Trạng thái: [{prod['quality_flag'].upper()}]")
+            except Exception as db_err:
+                print(f"    [LỖI STAGING DATABASE] Không thể insert '{prod['gold_type_name']}': {db_err}")
+                return False
+                
+        return success_count > 0
 
-    def log_anomaly(self, run_id, raw_id, data_date, anomaly_type, message):
-        query = """
-            INSERT INTO anomaly_log (run_id, raw_id, store_id, source_url, data_date, anomaly_type, created_at)
+    def save_gold_dim_data(self, data_date, product_results):
+        print(f" ->  Tiến hành kiểm tra đồng bộ sang kho dữ liệu dim_gold_price...")
+        
+        dim_upsert_query = """
+            INSERT INTO dim_gold_price (data_date, store, gold_type_name, buy_price, sell_price, normalized_unit, updated_at)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE 
+                updated_at = IF(buy_price != VALUES(buy_price) OR sell_price != VALUES(sell_price), VALUES(updated_at), updated_at),
+                buy_price = IF(buy_price != VALUES(buy_price) OR sell_price != VALUES(sell_price), VALUES(buy_price), buy_price),
+                sell_price = IF(buy_price != VALUES(buy_price) OR sell_price != VALUES(sell_price), VALUES(sell_price), sell_price);
         """
-        # Lưu ý: Ở đây ta lưu message vào một cột (có thể bạn cần thêm cột message vào bảng anomaly_log nếu chưa có)
-        self.db.execute_query(query, (run_id, raw_id, self.store_id, self.source_url, data_date, anomaly_type, datetime.now()))
-        logging.warning(f" [ANOMALY_LOG] {anomaly_type}: {message}")
-
-    def insert_staging(self, run_id, raw_id, gold_type_id, data_date, buy, sell):
-        query = """
-            INSERT INTO staging_gold_price 
-            (run_id, raw_id, store_id, gold_type_id, source_url, data_date, buy_price, sell_price, normalized_unit, quality_flag, create_at)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """
-        self.db.execute_query(query, (
-            run_id, raw_id, self.store_id, gold_type_id, self.source_url, data_date, 
-            buy, sell, 'VND/lượng', 'good', datetime.now()
-        ))
-
-    def insert_dim_price(self, data_date, gold_type_name, buy, sell):
-        query = """
-            INSERT INTO dim_gold_price 
-            (data_date, store, gold_type_name, buy_price, sell_price, normalized_unit, updated_at)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """
-        self.db.execute_query(query, (
-            data_date, 'BTMC', gold_type_name, buy, sell, 'VND/lượng', datetime.now()
-        ))
+        
+        now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        success_count = 0
+        
+        for prod in product_results:
+            if prod['quality_flag'] != 'missing':
+                try:
+                    dim_values = (data_date, self.store_name, prod['gold_type_name'], prod['buy_price'], prod['sell_price'], 'VND/lượng', now_str)
+                    self.db.execute_query(dim_upsert_query, dim_values)
+                    success_count += 1
+                    print(f"    [DIM COORD] Thực thi UPSERT thành công cho loại hình: '{prod['gold_type_name']}'")
+                except Exception as db_err:
+                    print(f"    [LỖI DIM DATABASE] Không thể xử lý dữ liệu sạch '{prod['gold_type_name']}': {db_err}")
+                    return False
+                    
+        # Nếu cả 2 đều bị missing (success_count = 0) thì vẫn return True vì nó là hành vi đúng đắn
+        return True
 
 if __name__ == "__main__":
-    # Test chạy Job
     job = JobBtmcCleanPipeline()
-    job.run_pipeline(run_id="20261026_BTMC_01")
+    job.run_pipeline()

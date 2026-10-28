@@ -1,11 +1,9 @@
 import sys
-import json
+import argparse
 import logging
 from database.oop_connection import DatabaseManagerOOP
-
-# Chỉ kéo 2 cỗ máy: Clean và Validate Basic
 from clean.sites.BTMC.oop_btmc_cleaner import BtmcCleanerOOP
-from clean.sites.BTMC.oop_btmc_validate_basic import BtmcValidateBasicOOP
+from clean.validate_basic.sites.BTMC.oop_btmc_validate_basic import BtmcValidateBasicOOP
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -15,40 +13,49 @@ class JobTestValidateBasic:
         self.cleaner = BtmcCleanerOOP()
         self.basic_validator = BtmcValidateBasicOOP()
 
-    def run_dry_test(self, record_limit=3):
-        logging.info("--- BẮT ĐẦU TEST LUỒNG: CLEAN -> VALIDATE BASIC ---")
+    def run_job(self):
+        parser = argparse.ArgumentParser(description="Debug độc lập bước Validate Basic")
+        parser.add_argument('--run_id', type=str, required=True)
+        args = parser.parse_known_args()[0]
+
+        logging.info(f"\n[DEBUG VALIDATE BASIC] RUN_ID: {args.run_id}")
         
-        query = "SELECT id, raw_payload FROM raw_gold_price ORDER BY id DESC LIMIT %s"
-        records = self.db.fetch_all(query, (record_limit,))
-        
-        if not records:
-            logging.info("Không có dữ liệu thô để test.")
-            return
+        # Truy vấn giống file gốc
+        query = """
+            SELECT raw_id, run_id, store_id, source_url, raw_payload 
+            FROM raw_gold_price 
+            WHERE run_id = %s AND status = 'success' 
+            ORDER BY raw_id DESC LIMIT 1
+        """
+        rows = self.db.fetch_all(query, (args.run_id,))
 
-        for row in records:
-            record_id = row[0]
-            raw_payload_str = row[1]
-            logging.info(f"\n[RECORD ID: {record_id}]")
+        if rows:
+            record = rows[0]
+            raw_id = record[0]
+            run_id = record[1]
+            source_url = record[3]
+            raw_payload = record[4]
 
-            # 1. Gọt HTML (Clean)
-            clean_json_str = self.cleaner.process_clean_raw_json(raw_payload_str)
-            if not clean_json_str:
-                logging.error(" -> [DỪNG LUỒNG] Lỗi bóc tách cấu trúc web.")
-                continue
+            # 1. Gọt HTML (Clean) để lấy chuỗi chuẩn
+            cleaned_str = self.cleaner.process_clean_raw_json(raw_payload)
             
-            # Dịch chuỗi thành Từ điển
-            text_dict = json.loads(clean_json_str)
-            logging.info(f" -> Dữ liệu sau Clean: {text_dict}")
-
-            # 2. Kiểm duyệt trực tiếp trên dữ liệu chữ (Validate Basic)
-            is_valid, message = self.basic_validator.validate(text_dict)
+            # 2. Chạy bài Test Basic, log lỗi sẽ tự động bắn vào Database
+            success = self.basic_validator.validate(
+                run_id=run_id, 
+                raw_id=raw_id, 
+                cleaned_payload_str=cleaned_str, 
+                source_url=source_url, 
+                is_debug=True
+            )
             
-            if is_valid:
-                logging.info(" -> KẾT QUẢ: [ĐẠT] - Đủ điều kiện gửi đi Normalize.")
+            if success:
+                sys.exit(0)
             else:
-                # Trong Job tổng, lệnh này sẽ kèm theo sys.exit(1) để hủy toàn bộ Job
-                logging.error(f" -> KẾT QUẢ: [BỊ CHẶN DỪNG LUỒNG] - {message}")
+                sys.exit(1)
+        else:
+            logging.error(f"[LỖI] Không tìm thấy dữ liệu trong raw_gold_price cho run_id: {args.run_id}.")
+            sys.exit(1)
 
 if __name__ == "__main__":
     job = JobTestValidateBasic()
-    job.run_dry_test(record_limit=2)
+    job.run_job()

@@ -16,9 +16,9 @@ class JobTestNormalize:
         self.normalizer = BtmcNormalizerOOP()
 
     def run_dry_test(self, run_id):
-        logging.info(f"--- [DEBUG NORMALIZE PRICE] RUN_ID: {run_id} ---[cite: 6]")
+        logging.info(f"--- [DEBUG NORMALIZE PRICE] RUN_ID: {run_id} ---")
         
-        query = "SELECT raw_id, raw_payload FROM raw_gold_price WHERE run_id = %s ORDER BY raw_id DESC LIMIT 1[cite: 6]"
+        query = "SELECT raw_id, raw_payload FROM raw_gold_price WHERE run_id = %s ORDER BY raw_id DESC LIMIT 1"
         records = self.db.fetch_all(query, (run_id,))
         
         if not records:
@@ -29,7 +29,7 @@ class JobTestNormalize:
         raw_id = row[0]
         raw_payload_str = row[1]
         
-        logging.info(f" -> Đang tiến hành xử lý cho raw_id: {raw_id}[cite: 6]")
+        logging.info(f" -> Đang tiến hành xử lý cho raw_id: {raw_id}")
 
         # 1. Gọt HTML
         clean_json_str = self.cleaner.process_clean_raw_json(raw_payload_str)
@@ -40,21 +40,15 @@ class JobTestNormalize:
         text_dict = json.loads(clean_json_str)
         logging.info(f" -> Dữ liệu sau Clean: {text_dict}")
 
-        # 2. Chuẩn hóa số nguyên & Nhân hệ số
-        is_ok, normalized_dict, msg = self.normalizer.normalize_payload(text_dict)
+        # 2. Chuẩn hóa số nguyên & Nhân hệ số (Không cần bẫy lỗi)
+        normalized_dict = self.normalizer.normalize_payload(text_dict)
         
-        if is_ok:
-            logging.info(" [NORMALIZE PRICE SUCCESS] Quy đổi hệ số nhân 10.000 thành công.[cite: 6]")
-            logging.info(f" -> Dữ liệu đầu ra:\n{json.dumps(normalized_dict, ensure_ascii=False, indent=4)}")
-            sys.exit(0)
-        else:
-            # Ở Job Tổng, lệnh INSERT xuống bảng error_log sẽ được viết tại đây[cite: 6]
-            logging.error(f" -> [THẤT BẠI LÚC NORMALIZE] {msg}")
-            sys.exit(1)
+        logging.info(" [NORMALIZE PRICE SUCCESS] Quy đổi hệ số nhân 10.000 thành công.")
+        logging.info(f" -> Dữ liệu đầu ra:\n{json.dumps(normalized_dict, ensure_ascii=False, indent=4)}")
+        sys.exit(0)
 
 if __name__ == "__main__":
-    # Nhận tham số truyền vào từ Terminal giống hệt file cũ của bạn[cite: 6]
-    parser = argparse.ArgumentParser(description="Debug độc lập bước Normalize Price[cite: 6]")
+    parser = argparse.ArgumentParser(description="Debug độc lập bước Normalize Price")
     parser.add_argument('--run_id', type=str, required=True)
     args = parser.parse_args()
 

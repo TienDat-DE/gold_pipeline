@@ -5,9 +5,9 @@ import logging
 from database.oop_connection import DatabaseManagerOOP
 
 from clean.sites.BTMC.oop_btmc_cleaner import BtmcCleanerOOP
-from clean.validate_basic.sites.BTMC.oop_btmc_validate_basic import BtmcValidateBasicOOP
-from clean.normalize.sites.BTMC.oop_btmc_normalizer import BtmcNormalizerOOP
-from clean.validate_business.sites.BTMC.oop_btmc_validate_business import BtmcValidateBusinessOOP
+from clean.sites.BTMC.oop_btmc_validate_basic import BtmcValidateBasicOOP
+from clean.sites.BTMC.oop_btmc_normalizer import BtmcNormalizerOOP
+from clean.sites.BTMC.oop_btmc_validate_business import BtmcValidateBusinessOOP
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 

@@ -1,4 +1,4 @@
-from clean.validate_basic.base.oop_base_validate_basic import BaseValidateBasicOOP
+from clean.base.oop_base_validate_basic import BaseValidateBasicOOP
 
 class BtmcValidateBasicOOP(BaseValidateBasicOOP):
     def __init__(self):

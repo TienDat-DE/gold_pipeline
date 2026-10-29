@@ -1,21 +1,28 @@
 import sys
 import subprocess
 import logging
+import argparse
 from datetime import datetime
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - [MASTER] - %(message)s')
 
 class JobBtmcMasterPipeline:
     def __init__(self):
-        # Tự động sinh tham số thời gian cho phiên chạy hiện tại
-        self.today_str = datetime.now().strftime('%Y%m%d')
+        # 1. Khởi tạo bộ đọc tham số từ Terminal
+        parser = argparse.ArgumentParser(description="Chạy Master Pipeline cho ngày bất kỳ")
+        parser.add_argument('--date', type=str, default=datetime.now().strftime('%Y%m%d'), help="Định dạng YYYYMMDD, vd: 20261025")
+        
+        # Chỉ lấy parse_known_args để tránh lỗi nếu truyền thừa tham số
+        args = parser.parse_known_args()[0]
+        
+        self.today_str = args.date
         self.run_id = f"{self.today_str}_BTMC"
         
-        # Cấu hình 6 bước của Pipeline, khai báo linh hoạt tham số (args) cho từng script
+        # 2. Cấu hình 6 bước của Pipeline với tham số động theo ngày truyền vào
         self.pipeline_steps = [
             {
                 "name": "1. Crawl Data", 
-                "module": "jobs.BTMC.raw.job_btmc_crawl", 
+                "module": "jobs.BTMC.crawler.job_btmc_crawl", 
                 "args": []
             },
             {

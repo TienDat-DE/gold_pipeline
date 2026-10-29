@@ -39,3 +39,18 @@ class DatabaseManagerOOP:
         finally:
             cursor.close()
             conn.close()
+
+    def fetch_all(self, query, params=None):
+        conn = self.get_connection()
+        if not conn: return None
+        try:
+            cursor = conn.cursor()
+            cursor.execute(query, params or ())
+            result = cursor.fetchall()
+            return result
+        except Exception as e:
+            logging.error(f"[OOP_DB] Lỗi truy vấn (fetch_all): {e}")
+            return None
+        finally:
+            cursor.close()
+            conn.close()

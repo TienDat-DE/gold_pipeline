@@ -7,14 +7,19 @@ class BaseHasherOOP:
         self.store_id = store_id
         self.db = DatabaseManagerOOP()
 
-    def generate_hash(self, gold_type_id, data_date, buy_price, sell_price):
-        """Băm chuỗi dữ liệu thành mã SHA-256 duy nhất"""
-        raw_str = f"{self.store_id}_{gold_type_id}_{data_date}_{buy_price}_{sell_price}"
+    def generate_hash(self, gold_type_id, buy_price, sell_price):
+        """Băm chuỗi dữ liệu (Chỉ băm giá trị cốt lõi, KHÔNG băm thời gian)"""
+        # Ép kiểu int để tránh lỗi float 142000000.0 khác với int 142000000
+        b_price = int(float(buy_price)) if buy_price else 0
+        s_price = int(float(sell_price)) if sell_price else 0
+        
+        raw_str = f"{self.store_id}_{gold_type_id}_{b_price}_{s_price}"
         return hashlib.sha256(raw_str.encode('utf-8')).hexdigest()
 
     def process_hash(self, run_id, gold_type_id, data_date, buy_price, sell_price, source_url):
         """Kiểm tra Hash tồn tại và lưu lịch sử check"""
-        new_hash = self.generate_hash(gold_type_id, data_date, buy_price, sell_price)
+        # Gọi hàm tạo hash mới (đã bỏ data_date)
+        new_hash = self.generate_hash(gold_type_id, buy_price, sell_price)
         
         # 1. Lấy hash hiện tại (is_current = 1) từ gold_price_history
         conn = self.db.get_connection()

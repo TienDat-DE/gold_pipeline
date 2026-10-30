@@ -2,6 +2,10 @@ import os
 import pandas as pd
 from datetime import datetime
 from database.oop_connection import DatabaseManagerOOP
+import warnings
+
+# Tắt cảnh báo SQLAlchemy của Pandas
+warnings.filterwarnings('ignore', category=UserWarning)
 
 class BaseExporterOOP:
     def __init__(self, data_lake_path="./data_lake"):

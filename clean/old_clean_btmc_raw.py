@@ -1,7 +1,7 @@
 import json
 import argparse
 import sys
-from database.connection import connection, cursor
+from database.old_connection import connection, cursor
 
 def clean_html_tags(raw_val):
     if not raw_val: 

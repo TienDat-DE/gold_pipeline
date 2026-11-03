@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from export.base.oop_base_exporter import BaseExporterOOP
 
 class BtmcExporterOOP(BaseExporterOOP):
@@ -6,37 +7,46 @@ class BtmcExporterOOP(BaseExporterOOP):
         super().__init__(data_lake_path="./data_lake")
         self.store_id = 1 # ID của BTMC
 
-    def backup_raw_data(self, target_date):
-        """Sao lưu dữ liệu thô HTML (Kho lạnh)"""
-        date_str = target_date.strftime("%Y-%m-%d")
-        query = "SELECT * FROM raw_gold_price WHERE DATE(created_at) = %s AND store_id = %s"
+    def _get_date_from_run_id(self, run_id):
+        """Tách chuỗi run_id thành datetime object để chia thư mục năm/tháng"""
+        date_str = run_id.split('_')[0]
+        return datetime.strptime(date_str, '%Y%m%d')
+
+    def backup_raw_data(self, run_id):
+        """Sao lưu dữ liệu thô HTML (Kho lạnh) THEO RUN_ID"""
+        target_date = self._get_date_from_run_id(run_id)
         
-        # Lưu vào backups/raw_data/year=.../month=.../
+        # Chỉ lấy RAW phát sinh trong lần chạy này
+        query = "SELECT * FROM raw_gold_price WHERE run_id = %s AND store_id = %s"
+        
         dir_path = self.get_partition_path("backups/raw_data", target_date)
-        file_name = f"raw_gold_BTMC_{target_date.strftime('%Y%m%d')}.jsonl"
+        file_name = f"raw_gold_{run_id}.jsonl"
         file_path = os.path.join(dir_path, file_name)
         
-        return self.export_to_jsonl(query, (date_str, self.store_id), file_path)
+        return self.export_to_jsonl(query, (run_id, self.store_id), file_path)
 
-    def export_bi_current(self, target_date):
+    def export_bi_current(self, run_id):
         """Xuất Snapshot giá hiện tại phục vụ Dashboard (Business)"""
+        # Snapshot cho BI luôn cần toàn bộ giá MỚI NHẤT hiện tại của cửa hàng
         query = "SELECT * FROM gold_price_history WHERE store_id = %s AND is_current = 1"
         
-        # Thư mục output_bi không chia year/month để BI tools đọc 1 file duy nhất dễ dàng
         dir_path = os.path.join(self.data_lake_path, "output_bi")
         self._create_dir_if_not_exists(dir_path)
         
-        file_name = f"current_gold_prices_BTMC_{target_date.strftime('%Y%m%d')}.parquet"
+        file_name = f"current_gold_prices_{run_id}.parquet"
         file_path = os.path.join(dir_path, file_name)
         
         return self.export_to_parquet(query, (self.store_id,), file_path)
         
-    def backup_history_data(self, target_date):
-        """Sao lưu toàn bộ bảng lịch sử (Kho lạnh)"""
-        query = "SELECT * FROM gold_price_history WHERE store_id = %s"
+    def backup_history_data(self, run_id):
+        """Sao lưu CHỈ NHỮNG LỊCH SỬ MỚI PHÁT SINH trong lần chạy này (Incremental)"""
+        target_date = self._get_date_from_run_id(run_id)
+        
+        # Khóa chặt bằng run_id để tránh kéo toàn bộ dữ liệu lịch sử cũ
+        query = "SELECT * FROM gold_price_history WHERE run_id = %s AND store_id = %s"
         
         dir_path = self.get_partition_path("backups/history_data", target_date)
-        file_name = f"history_gold_BTMC_{target_date.strftime('%Y%m%d')}.parquet"
+        file_name = f"history_gold_{run_id}.parquet"
         file_path = os.path.join(dir_path, file_name)
         
-        return self.export_to_parquet(query, (self.store_id,), file_path)
+        return self.export_to_parquet(query, (run_id, self.store_id), file_path)

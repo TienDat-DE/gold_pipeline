@@ -9,7 +9,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - [MASTER] - %(messa
 
 class JobBtmcMasterPipeline:
     def __init__(self):
-        # 1. Khởi tạo bộ đọc tham số (Hỗ trợ chạy 1 khoảng thời gian)
         parser = argparse.ArgumentParser(description="Chạy Master Pipeline Backfill dữ liệu")
         parser.add_argument('--start_date', type=str, default=datetime.now().strftime('%Y%m%d'), help="Ngày bắt đầu (YYYYMMDD)")
         parser.add_argument('--end_date', type=str, default=None, help="Ngày kết thúc (YYYYMMDD). Bỏ trống = chỉ chạy start_date")
@@ -39,18 +38,22 @@ class JobBtmcMasterPipeline:
         return date_list
 
     def log_job_start(self, run_id):
-        query = """
+        query_pipeline = """
+            INSERT INTO pipeline_log (run_id, store_id, job_name, status, start_time, source_url)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE status = 'RUNNING', start_time = VALUES(start_time)
+        """
+        query_job = """
             INSERT INTO job_run (run_id, store_id, job_name, run_time, status, source_url)
             VALUES (%s, %s, %s, %s, %s, %s)
         """
         try:
             now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            job_run_id = self.db.execute_query(query, (
-                run_id, self.store_id, 'BTMC_MASTER_PIPELINE', now_str, 'RUNNING', self.source_url
-            ))
+            self.db.execute_query(query_pipeline, (run_id, self.store_id, 'BTMC_MASTER_PIPELINE', 'RUNNING', now_str, self.source_url))
+            job_run_id = self.db.execute_query(query_job, (run_id, self.store_id, 'BTMC_MASTER_PIPELINE', now_str, 'RUNNING', self.source_url))
             return job_run_id
         except Exception as e:
-            logging.error(f"[JOB_RUN] Lỗi khởi tạo bảng job_run: {e}")
+            logging.error(f"[JOB_RUN] Lỗi khởi tạo log hệ thống: {e}")
             return None
 
     def log_job_end(self, run_id, job_run_id, final_status):
@@ -94,14 +97,13 @@ class JobBtmcMasterPipeline:
             
             job_run_id = self.log_job_start(run_id)
             
-            # Khởi tạo config các bước nằm TRONG vòng lặp để gán đúng target_date
             pipeline_steps = [
                 {"name": "1. Crawl Data", "module": "jobs.BTMC.crawler.job_btmc_crawl", "args": ["--date", target_date]},
                 {"name": "2. Save Raw Data", "module": "jobs.BTMC.raw.job_btmc_raw", "args": ["--date", target_date]},
                 {"name": "3. Check Validate & Clean", "module": "jobs.BTMC.clean.job_btmc_clean_pipeline", "args": ["--run_id", run_id]},
                 {"name": "4. Create Hash & Track", "module": "jobs.BTMC.hash.job_btmc_hash", "args": ["--run_id", run_id]},
                 {"name": "5. SCD Type 2 Logic", "module": "jobs.BTMC.load_history.job_btmc_scd2", "args": ["--run_id", run_id]},
-                {"name": "6. Output Final Backup", "module": "jobs.BTMC.export.job_btmc_export", "args": []}
+                {"name": "6. Output Final Backup", "module": "jobs.BTMC.export.job_btmc_export", "args": ["--run_id", run_id]}
             ]
             
             step_failed = False
@@ -116,7 +118,7 @@ class JobBtmcMasterPipeline:
                     logging.error(f"[THẤT BẠI] Vỡ tại bước: {step['name']}. Hủy các bước sau của ngày {target_date}.")
                     self.log_job_end(run_id, job_run_id, 'FAILED')
                     step_failed = True
-                    break # Bỏ qua các bước còn lại, nhảy sang chạy ngày tiếp theo
+                    break 
                 except Exception as e:
                     logging.error(f"[LỖI] Không thể gọi {step['module']}: {e}")
                     self.log_job_end(run_id, job_run_id, 'FAILED')

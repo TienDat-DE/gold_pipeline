@@ -19,14 +19,27 @@ class JobBtmcLoadHistory:
         
         logging.info(f"========== BẮT ĐẦU LOAD HISTORY (SCD2) | RUN_ID: {run_id} ==========")
         
-        # JOIN hash_tracking (lấy record thay đổi) với staging (lấy giá mua/bán)
+        # [SỬA LỖI]: Ghép cặp chính xác bản ghi Hash mới nhất và bản ghi Staging mới nhất để tránh nhân bản dữ liệu
         query_changed_records = """
             SELECT h.record_hash_id, h.gold_type_id, h.source_url, h.hash_value, h.data_date, s.buy_price, s.sell_price
             FROM hash_tracking h
+            INNER JOIN (
+                SELECT gold_type_id, MAX(record_hash_id) as max_hash_id
+                FROM hash_tracking
+                WHERE run_id = %s
+                GROUP BY gold_type_id
+            ) hm ON h.record_hash_id = hm.max_hash_id
             JOIN staging_gold_price s ON h.run_id = s.run_id AND h.gold_type_id = s.gold_type_id
-            WHERE h.run_id = %s AND h.is_changed = 1
+            INNER JOIN (
+                SELECT gold_type_id, MAX(stg_id) as max_stg_id
+                FROM staging_gold_price
+                WHERE run_id = %s
+                GROUP BY gold_type_id
+            ) sm ON s.stg_id = sm.max_stg_id
+            WHERE h.is_changed = 1
         """
-        records = self.db.fetch_all(query_changed_records, (run_id,))
+        # Cần truyền 2 biến run_id vào cho 2 block sub-query
+        records = self.db.fetch_all(query_changed_records, (run_id, run_id))
         
         if not records:
             logging.info("Không có biến động giá nào cần ghi nhận (is_changed = 0). Bỏ qua SCD2.")

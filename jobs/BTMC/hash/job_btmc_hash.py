@@ -19,10 +19,16 @@ class JobBtmcHash:
         
         logging.info(f"========== BẮT ĐẦU HASH | RUN_ID: {run_id} ==========")
         
+        # [SỬA LỖI]: Dùng INNER JOIN với MAX(stg_id) để chỉ lấy đúng 1 dòng mới nhất cho SJC và Nhẫn
         query_staging = """
-            SELECT gold_type_id, data_date, buy_price, sell_price, source_url 
-            FROM staging_gold_price 
-            WHERE run_id = %s AND quality_flag = 'good'
+            SELECT s1.gold_type_id, s1.data_date, s1.buy_price, s1.sell_price, s1.source_url 
+            FROM staging_gold_price s1
+            INNER JOIN (
+                SELECT gold_type_id, MAX(stg_id) as max_stg_id
+                FROM staging_gold_price 
+                WHERE run_id = %s AND quality_flag = 'good'
+                GROUP BY gold_type_id
+            ) s2 ON s1.stg_id = s2.max_stg_id
         """
         records = self.db.fetch_all(query_staging, (run_id,))
         

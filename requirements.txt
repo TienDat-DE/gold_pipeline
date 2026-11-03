@@ -12,3 +12,7 @@ python-dotenv
 # 4. Data Processing & Export (Tầng Xuất dữ liệu)
 pandas
 pyarrow
+
+# 5. airflow 
+pendulum==3.0.0
+apache-airflow==2.9.0

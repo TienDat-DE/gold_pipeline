@@ -1,0 +1,88 @@
+[2026-11-03T18:01:35.471+0700] {processor.py:161} INFO - Started process (PID=6862) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:01:35.473+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:01:35.473+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:01:35.473+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:01:35.478+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:01:35.574+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:01:35.573+0700] {override.py:1829} INFO - Created Permission View: can edit on DAG:btmc_gold_pipeline_daily
+[2026-11-03T18:01:35.578+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:01:35.577+0700] {override.py:1829} INFO - Created Permission View: can delete on DAG:btmc_gold_pipeline_daily
+[2026-11-03T18:01:35.580+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:01:35.580+0700] {override.py:1829} INFO - Created Permission View: can read on DAG:btmc_gold_pipeline_daily
+[2026-11-03T18:01:35.580+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:01:35.580+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:01:35.584+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:01:35.584+0700] {dag.py:3118} INFO - Creating ORM DAG for btmc_gold_pipeline_daily
+[2026-11-03T18:01:35.587+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:01:35.587+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-02 03:00:00+00:00, run_after=2026-11-03 03:00:00+00:00
+[2026-11-03T18:01:35.594+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.124 seconds
+[2026-11-03T18:02:46.668+0700] {processor.py:161} INFO - Started process (PID=6917) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:02:46.670+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:02:46.670+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:02:46.670+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:02:46.673+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:02:46.709+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:02:46.709+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:02:46.715+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:02:46.715+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-02 03:00:00+00:00, run_after=2026-11-03 03:00:00+00:00
+[2026-11-03T18:02:46.722+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.055 seconds
+[2026-11-03T18:03:48.311+0700] {processor.py:161} INFO - Started process (PID=6987) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:03:48.313+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:03:48.314+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:03:48.314+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:03:48.317+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:03:48.353+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:03:48.353+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:03:48.359+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:03:48.359+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:03:48.366+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.056 seconds
+[2026-11-03T18:04:50.659+0700] {processor.py:161} INFO - Started process (PID=7046) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:04:50.660+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:04:50.661+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:04:50.661+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:04:50.664+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:04:50.700+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:04:50.700+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:04:50.707+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:04:50.707+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:04:50.713+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.056 seconds
+[2026-11-03T18:05:53.151+0700] {processor.py:161} INFO - Started process (PID=7084) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:05:53.152+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:05:53.153+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:05:53.152+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:05:53.155+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:05:53.192+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:05:53.192+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:05:53.198+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:05:53.198+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:05:53.205+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.055 seconds
+[2026-11-03T18:06:51.382+0700] {processor.py:161} INFO - Started process (PID=7131) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:06:51.384+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:06:51.384+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:06:51.384+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:06:51.387+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:06:51.425+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:06:51.425+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:06:51.431+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:06:51.431+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:06:51.438+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.057 seconds
+[2026-11-03T18:07:47.204+0700] {processor.py:161} INFO - Started process (PID=7182) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:07:47.205+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:07:47.205+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:07:47.205+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:07:47.208+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:07:47.244+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:07:47.244+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:07:47.250+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:07:47.250+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:07:47.257+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.055 seconds
+[2026-11-03T18:08:41.589+0700] {processor.py:161} INFO - Started process (PID=7225) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:08:41.591+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:08:41.591+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:08:41.591+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:08:41.594+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:08:41.631+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:08:41.631+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:08:41.637+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:08:41.637+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:08:41.644+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.056 seconds
+[2026-11-03T18:09:39.141+0700] {processor.py:161} INFO - Started process (PID=7299) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:09:39.142+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:09:39.142+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:09:39.142+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:09:39.146+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:09:39.183+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:09:39.183+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:09:39.189+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:09:39.189+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:09:39.196+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.056 seconds
+[2026-11-03T18:10:32.802+0700] {processor.py:161} INFO - Started process (PID=7466) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:10:32.803+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:10:32.803+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:10:32.803+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:10:32.806+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:10:32.844+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:10:32.844+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:10:32.850+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:10:32.850+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:10:32.857+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.057 seconds
+[2026-11-03T18:11:28.242+0700] {processor.py:161} INFO - Started process (PID=7660) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:11:28.243+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:11:28.244+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:11:28.244+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:11:28.247+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:11:28.284+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:11:28.284+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:11:28.290+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:11:28.290+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:11:28.297+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.057 seconds
+[2026-11-03T18:12:23.995+0700] {processor.py:161} INFO - Started process (PID=7705) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:12:23.996+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py for tasks to queue
+[2026-11-03T18:12:23.996+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:12:23.996+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:12:23.999+0700] {processor.py:840} INFO - DAG(s) 'btmc_gold_pipeline_daily' retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py
+[2026-11-03T18:12:24.036+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:12:24.036+0700] {dag.py:3096} INFO - Sync 1 DAGs
+[2026-11-03T18:12:24.042+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:12:24.042+0700] {dag.py:3954} INFO - Setting next_dagrun for btmc_gold_pipeline_daily to 2026-11-03 03:00:00+00:00, run_after=2026-11-04 03:00:00+00:00
+[2026-11-03T18:12:24.049+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/dags/dag_btmc_pipeline.py took 0.055 seconds

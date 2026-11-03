@@ -1,0 +1,54 @@
+[2026-11-03T18:11:08.168+0700] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-11-03T18:11:08.175+0700] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: btmc_gold_pipeline_daily.trigger_master_pipeline backfill__2026-11-01T03:00:00+00:00 [queued]>
+[2026-11-03T18:11:08.177+0700] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: btmc_gold_pipeline_daily.trigger_master_pipeline backfill__2026-11-01T03:00:00+00:00 [queued]>
+[2026-11-03T18:11:08.177+0700] {taskinstance.py:2303} INFO - Starting attempt 1 of 3
+[2026-11-03T18:11:08.182+0700] {taskinstance.py:2327} INFO - Executing <Task(BashOperator): trigger_master_pipeline> on 2026-11-01 03:00:00+00:00
+[2026-11-03T18:11:08.185+0700] {standard_task_runner.py:63} INFO - Started process 7636 to run task
+[2026-11-03T18:11:08.187+0700] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'btmc_gold_pipeline_daily', 'trigger_master_pipeline', 'backfill__2026-11-01T03:00:00+00:00', '--job-id', '15', '--pool', 'default_pool', '--raw', '--subdir', 'DAGS_FOLDER/dag_btmc_pipeline.py', '--cfg-path', '/var/folders/vp/33gp01s551v2dplh_v_1mpnr0000gp/T/tmpnw4g9teq']
+[2026-11-03T18:11:08.189+0700] {standard_task_runner.py:91} INFO - Job 15: Subtask trigger_master_pipeline
+[2026-11-03T18:11:08.204+0700] {task_command.py:426} INFO - Running <TaskInstance: btmc_gold_pipeline_daily.trigger_master_pipeline backfill__2026-11-01T03:00:00+00:00 [running]> on host TSunnyM2.2023A
+[2026-11-03T18:11:08.225+0700] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='TienDat-DE' AIRFLOW_CTX_DAG_ID='btmc_gold_pipeline_daily' AIRFLOW_CTX_TASK_ID='trigger_master_pipeline' AIRFLOW_CTX_EXECUTION_DATE='2026-11-01T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='backfill__2026-11-01T03:00:00+00:00'
+[2026-11-03T18:11:08.226+0700] {taskinstance.py:430} INFO - ::endgroup::
+[2026-11-03T18:11:08.226+0700] {subprocess.py:63} INFO - Tmp dir root location: /var/folders/vp/33gp01s551v2dplh_v_1mpnr0000gp/T
+[2026-11-03T18:11:08.227+0700] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', '\n        cd /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline &&         source venv/bin/activate &&         python -m jobs.BTMC.job_btmc_master --date 20261101\n        ']
+[2026-11-03T18:11:08.229+0700] {subprocess.py:86} INFO - Output:
+[2026-11-03T18:11:08.289+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,289 - [MASTER] - ==================================================
+[2026-11-03T18:11:08.290+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,289 - [MASTER] -  KÍCH HOẠT CHẠY BACKFILL DỮ LIỆU (1 NGÀY)
+[2026-11-03T18:11:08.290+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,289 - [MASTER] - ==================================================
+[2026-11-03T18:11:08.290+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,289 - [MASTER] -
+[2026-11-03T18:11:08.290+0700] {subprocess.py:93} INFO - --- BẮT ĐẦU XỬ LÝ CHO NGÀY: 20261101 (RUN_ID: 20261101_BTMC) ---
+[2026-11-03T18:11:08.305+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,305 - [MASTER] - >>> Đang kích hoạt: 1. Crawl Data...
+[2026-11-03T18:11:08.387+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,386 - ========== BẮT ĐẦU TIẾN TRÌNH CRAWL DATA BTMC ==========
+[2026-11-03T18:11:08.387+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,386 - Attempt: 1/5 | Gửi request tới API...
+[2026-11-03T18:11:08.543+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,543 - -> [THÀNH CÔNG] Đã lấy trọn vẹn chuỗi JSON lịch sử!
+[2026-11-03T18:11:08.581+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,581 - [MASTER] - >>> Đang kích hoạt: 2. Save Raw Data...
+[2026-11-03T18:11:08.651+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,651 -
+[2026-11-03T18:11:08.651+0700] {subprocess.py:93} INFO - [HỆ THỐNG] Đang lấy dữ liệu JSON để xử lý thô cho RUN_ID: 20261101_BTMC
+[2026-11-03T18:11:08.680+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,680 -  -> Trích xuất khối JSON Data thô thành công.
+[2026-11-03T18:11:08.701+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,701 - [MASTER] - >>> Đang kích hoạt: 3. Check Validate & Clean...
+[2026-11-03T18:11:08.796+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,796 -  -> [LOG ERROR_LOG] MISSING_REQUIRED_FIELD: Thiếu trường cốt lõi hoặc rỗng: 'sjcmua' | Source: https://btmc.vn/ProductHome/getGoldDate?date=01%2F11%2F2026
+[2026-11-03T18:11:08.809+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,809 -  -> [LOG ERROR_LOG] MISSING_REQUIRED_FIELD: Thiếu trường cốt lõi hoặc rỗng: 'btmcvangnhanmua' | Source: https://btmc.vn/ProductHome/getGoldDate?date=01%2F11%2F2026
+[2026-11-03T18:11:08.836+0700] {subprocess.py:93} INFO - 
+[2026-11-03T18:11:08.836+0700] {subprocess.py:93} INFO -  [PIPELINE START] Khởi động luồng làm sạch cho RUN_ID: 20261101_BTMC
+[2026-11-03T18:11:08.836+0700] {subprocess.py:93} INFO - --------------------------------------------------------------------
+[2026-11-03T18:11:08.836+0700] {subprocess.py:93} INFO -  [1/4]  Clean HTML Tags    -> Hoàn tất bóc tách HTML từ JSON thô.
+[2026-11-03T18:11:08.836+0700] {subprocess.py:93} INFO -  [2/4]  Validate Basic     ->  THẤT BẠI: Cả 2 sản phẩm đều rỗng/lỗi số. (Đã ghi error_log).
+[2026-11-03T18:11:08.836+0700] {subprocess.py:93} INFO -  [3/4]  Normalize Price    ->  BỎ QUA: Không có dữ liệu số hợp lệ để tính toán.
+[2026-11-03T18:11:08.837+0700] {subprocess.py:93} INFO -  [4/4]  Validate Business  ->  BỎ QUA: Không có sản phẩm nào đủ điều kiện check nghiệp vụ.
+[2026-11-03T18:11:08.837+0700] {subprocess.py:93} INFO - --------------------------------------------------------------------
+[2026-11-03T18:11:08.837+0700] {subprocess.py:93} INFO - 
+[2026-11-03T18:11:08.837+0700] {subprocess.py:93} INFO -  ->  Tiến hành lưu tầng trung gian (Staging) cho raw_id: 1145
+[2026-11-03T18:11:08.837+0700] {subprocess.py:93} INFO -     [STAGING OK] Đã nạp dữ liệu: 'Vàng SJC' | Trạng thái: [MISSING]
+[2026-11-03T18:11:08.837+0700] {subprocess.py:93} INFO -     [STAGING OK] Đã nạp dữ liệu: 'Vàng nhẫn tròn trơn' | Trạng thái: [MISSING]
+[2026-11-03T18:11:08.838+0700] {subprocess.py:93} INFO -  ->  Tiến hành kiểm tra đồng bộ sang kho dữ liệu dim_gold_price...
+[2026-11-03T18:11:08.838+0700] {subprocess.py:93} INFO -  [THẤT BẠI] Toàn bộ dữ liệu đều hỏng hoặc thiếu. Hủy luồng báo lỗi về Master.
+[2026-11-03T18:11:08.842+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,842 - [MASTER] - [THẤT BẠI] Vỡ tại bước: 3. Check Validate & Clean.
+[2026-11-03T18:11:08.856+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,856 - [MASTER] - ==================================================
+[2026-11-03T18:11:08.856+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,856 - [MASTER] -  [HOÀN TẤT] CHIẾN DỊCH CHẠY BACKFILL KẾT THÚC.
+[2026-11-03T18:11:08.857+0700] {subprocess.py:93} INFO - 2026-11-03 18:11:08,856 - [MASTER] - ==================================================
+[2026-11-03T18:11:08.863+0700] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-11-03T18:11:08.863+0700] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-11-03T18:11:08.870+0700] {taskinstance.py:1205} INFO - Marking task as SUCCESS. dag_id=btmc_gold_pipeline_daily, task_id=trigger_master_pipeline, execution_date=20261101T030000, start_date=20261103T111108, end_date=20261103T111108
+[2026-11-03T18:11:08.894+0700] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-11-03T18:11:08.899+0700] {taskinstance.py:3482} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-11-03T18:11:08.900+0700] {local_task_job_runner.py:222} INFO - ::endgroup::

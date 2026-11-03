@@ -1,0 +1,132 @@
+[2026-11-03T17:49:56.974+0700] {processor.py:161} INFO - Started process (PID=6222) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:49:56.975+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T17:49:56.975+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:49:56.975+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:49:56.990+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:49:56.989+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T17:49:56.991+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:49:56.991+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T17:49:56.991+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:49:57.022+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.049 seconds
+[2026-11-03T17:51:20.651+0700] {processor.py:161} INFO - Started process (PID=6319) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:51:20.652+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T17:51:20.652+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:51:20.652+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:51:20.670+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:51:20.668+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T17:51:20.670+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:51:20.670+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T17:51:20.670+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:51:20.701+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.052 seconds
+[2026-11-03T17:52:59.736+0700] {processor.py:161} INFO - Started process (PID=6464) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:52:59.738+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T17:52:59.738+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:52:59.738+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:52:59.754+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:52:59.752+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T17:52:59.754+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:52:59.754+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T17:52:59.754+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:52:59.787+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.052 seconds
+[2026-11-03T17:57:30.230+0700] {processor.py:161} INFO - Started process (PID=6608) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:57:30.232+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T17:57:30.232+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:57:30.232+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:57:30.248+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:57:30.246+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T17:57:30.248+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:57:30.248+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T17:57:30.248+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:57:30.279+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.050 seconds
+[2026-11-03T17:58:57.560+0700] {processor.py:161} INFO - Started process (PID=6739) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:58:57.562+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T17:58:57.562+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:58:57.562+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:58:57.579+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:58:57.577+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T17:58:57.579+0700] {logging_mixin.py:188} INFO - [2026-11-03T17:58:57.579+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T17:58:57.579+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T17:58:57.610+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.051 seconds
+[2026-11-03T18:00:52.664+0700] {processor.py:161} INFO - Started process (PID=6825) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:00:52.666+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T18:00:52.666+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:00:52.666+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:00:52.684+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:00:52.682+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T18:00:52.684+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:00:52.684+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T18:00:52.684+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:00:52.718+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.055 seconds
+[2026-11-03T18:02:41.625+0700] {processor.py:161} INFO - Started process (PID=6914) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:02:41.627+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T18:02:41.627+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:02:41.627+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:02:41.644+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:02:41.642+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T18:02:41.644+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:02:41.644+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T18:02:41.644+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:02:41.675+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.051 seconds
+[2026-11-03T18:04:45.542+0700] {processor.py:161} INFO - Started process (PID=7043) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:04:45.544+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T18:04:45.544+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:04:45.544+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:04:45.560+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:04:45.558+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T18:04:45.560+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:04:45.560+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T18:04:45.560+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:04:45.591+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.051 seconds
+[2026-11-03T18:06:46.171+0700] {processor.py:161} INFO - Started process (PID=7126) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:06:46.173+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T18:06:46.173+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:06:46.173+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:06:46.190+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:06:46.188+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T18:06:46.190+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:06:46.190+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T18:06:46.190+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:06:46.221+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.051 seconds
+[2026-11-03T18:08:36.674+0700] {processor.py:161} INFO - Started process (PID=7221) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:08:36.676+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T18:08:36.676+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:08:36.676+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:08:36.693+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:08:36.691+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T18:08:36.693+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:08:36.693+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T18:08:36.693+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:08:36.724+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.051 seconds
+[2026-11-03T18:10:28.534+0700] {processor.py:161} INFO - Started process (PID=7463) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:10:28.535+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T18:10:28.535+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:10:28.535+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:10:28.550+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:10:28.549+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T18:10:28.550+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:10:28.550+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T18:10:28.551+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:10:28.581+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.049 seconds
+[2026-11-03T18:12:18.858+0700] {processor.py:161} INFO - Started process (PID=7702) to work on /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:12:18.860+0700] {processor.py:830} INFO - Processing file /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py for tasks to queue
+[2026-11-03T18:12:18.860+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:12:18.860+0700] {dagbag.py:540} INFO - Filling up the DagBag from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:12:18.876+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:12:18.874+0700] {example_local_kubernetes_executor.py:40} WARNING - Could not import DAGs in example_local_kubernetes_executor.py
+Traceback (most recent call last):
+  File "/Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py", line 38, in <module>
+    from kubernetes.client import models as k8s
+ModuleNotFoundError: No module named 'kubernetes'
+[2026-11-03T18:12:18.876+0700] {logging_mixin.py:188} INFO - [2026-11-03T18:12:18.876+0700] {example_local_kubernetes_executor.py:41} WARNING - Install Kubernetes dependencies with: pip install apache-airflow[cncf.kubernetes]
+[2026-11-03T18:12:18.876+0700] {processor.py:842} WARNING - No viable dags retrieved from /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py
+[2026-11-03T18:12:18.908+0700] {processor.py:183} INFO - Processing /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline/venv/lib/python3.9/site-packages/airflow/example_dags/example_local_kubernetes_executor.py took 0.051 seconds

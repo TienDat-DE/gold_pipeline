@@ -1,0 +1,70 @@
+[2026-11-03T18:04:29.827+0700] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-11-03T18:04:29.833+0700] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: btmc_gold_pipeline_daily.trigger_master_pipeline manual__2026-11-03T11:04:27.574855+00:00 [queued]>
+[2026-11-03T18:04:29.835+0700] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: btmc_gold_pipeline_daily.trigger_master_pipeline manual__2026-11-03T11:04:27.574855+00:00 [queued]>
+[2026-11-03T18:04:29.835+0700] {taskinstance.py:2303} INFO - Starting attempt 1 of 3
+[2026-11-03T18:04:29.839+0700] {taskinstance.py:2327} INFO - Executing <Task(BashOperator): trigger_master_pipeline> on 2026-11-03 11:04:27.574855+00:00
+[2026-11-03T18:04:29.841+0700] {standard_task_runner.py:63} INFO - Started process 7020 to run task
+[2026-11-03T18:04:29.844+0700] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'btmc_gold_pipeline_daily', 'trigger_master_pipeline', 'manual__2026-11-03T11:04:27.574855+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/dag_btmc_pipeline.py', '--cfg-path', '/var/folders/vp/33gp01s551v2dplh_v_1mpnr0000gp/T/tmpq5h_pi88']
+[2026-11-03T18:04:29.845+0700] {standard_task_runner.py:91} INFO - Job 5: Subtask trigger_master_pipeline
+[2026-11-03T18:04:29.858+0700] {task_command.py:426} INFO - Running <TaskInstance: btmc_gold_pipeline_daily.trigger_master_pipeline manual__2026-11-03T11:04:27.574855+00:00 [running]> on host TSunnyM2.2023A
+[2026-11-03T18:04:29.880+0700] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='TienDat-DE' AIRFLOW_CTX_DAG_ID='btmc_gold_pipeline_daily' AIRFLOW_CTX_TASK_ID='trigger_master_pipeline' AIRFLOW_CTX_EXECUTION_DATE='2026-11-03T11:04:27.574855+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-11-03T11:04:27.574855+00:00'
+[2026-11-03T18:04:29.880+0700] {taskinstance.py:430} INFO - ::endgroup::
+[2026-11-03T18:04:29.881+0700] {subprocess.py:63} INFO - Tmp dir root location: /var/folders/vp/33gp01s551v2dplh_v_1mpnr0000gp/T
+[2026-11-03T18:04:29.881+0700] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', '\n        cd /Users/tsdeveloper/Desktop/Gold_Sentiment_Analysis/Gold_pipeline &&         source venv/bin/activate &&         python -m jobs.BTMC.job_btmc_master --date 20261103\n        ']
+[2026-11-03T18:04:29.902+0700] {subprocess.py:86} INFO - Output:
+[2026-11-03T18:04:29.970+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:29,970 - [MASTER] - ==================================================
+[2026-11-03T18:04:29.970+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:29,970 - [MASTER] -  KÍCH HOẠT CHẠY BACKFILL DỮ LIỆU (1 NGÀY)
+[2026-11-03T18:04:29.970+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:29,970 - [MASTER] - ==================================================
+[2026-11-03T18:04:29.970+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:29,970 - [MASTER] -
+[2026-11-03T18:04:29.971+0700] {subprocess.py:93} INFO - --- BẮT ĐẦU XỬ LÝ CHO NGÀY: 20261103 (RUN_ID: 20261103_BTMC) ---
+[2026-11-03T18:04:30.005+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,004 - [MASTER] - >>> Đang kích hoạt: 1. Crawl Data...
+[2026-11-03T18:04:30.082+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,082 - ========== BẮT ĐẦU TIẾN TRÌNH CRAWL DATA BTMC ==========
+[2026-11-03T18:04:30.082+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,082 - Attempt: 1/5 | Gửi request tới API...
+[2026-11-03T18:04:30.242+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,242 - -> [THÀNH CÔNG] Đã lấy trọn vẹn chuỗi JSON lịch sử!
+[2026-11-03T18:04:30.298+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,298 - [MASTER] - >>> Đang kích hoạt: 2. Save Raw Data...
+[2026-11-03T18:04:30.367+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,367 -
+[2026-11-03T18:04:30.367+0700] {subprocess.py:93} INFO - [HỆ THỐNG] Đang lấy dữ liệu JSON để xử lý thô cho RUN_ID: 20261103_BTMC
+[2026-11-03T18:04:30.394+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,394 -  -> Trích xuất khối JSON Data thô thành công.
+[2026-11-03T18:04:30.414+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,414 - [MASTER] - >>> Đang kích hoạt: 3. Check Validate & Clean...
+[2026-11-03T18:04:30.538+0700] {subprocess.py:93} INFO - 
+[2026-11-03T18:04:30.538+0700] {subprocess.py:93} INFO -  [PIPELINE START] Khởi động luồng làm sạch cho RUN_ID: 20261103_BTMC
+[2026-11-03T18:04:30.538+0700] {subprocess.py:93} INFO - --------------------------------------------------------------------
+[2026-11-03T18:04:30.538+0700] {subprocess.py:93} INFO -  [1/4]  Clean HTML Tags    -> Hoàn tất bóc tách HTML từ JSON thô.
+[2026-11-03T18:04:30.538+0700] {subprocess.py:93} INFO -  [2/4]  Validate Basic     -> Hoàn tất kiểm tra định dạng (SJC: OK | Nhẫn: OK).
+[2026-11-03T18:04:30.539+0700] {subprocess.py:93} INFO -  [3/4]  Normalize Price    -> Hoàn tất chuẩn hoá số nguyên.
+[2026-11-03T18:04:30.539+0700] {subprocess.py:93} INFO -  [4/4]  Validate Business  -> Hoàn tất kiểm tra (Logic tài chính an toàn).
+[2026-11-03T18:04:30.539+0700] {subprocess.py:93} INFO - --------------------------------------------------------------------
+[2026-11-03T18:04:30.539+0700] {subprocess.py:93} INFO - 
+[2026-11-03T18:04:30.539+0700] {subprocess.py:93} INFO -  ->  Tiến hành lưu tầng trung gian (Staging) cho raw_id: 1136
+[2026-11-03T18:04:30.539+0700] {subprocess.py:93} INFO -     [STAGING OK] Đã nạp dữ liệu: 'Vàng SJC' | Trạng thái: [GOOD]
+[2026-11-03T18:04:30.540+0700] {subprocess.py:93} INFO -     [STAGING OK] Đã nạp dữ liệu: 'Vàng nhẫn tròn trơn' | Trạng thái: [GOOD]
+[2026-11-03T18:04:30.540+0700] {subprocess.py:93} INFO -  ->  Tiến hành kiểm tra đồng bộ sang kho dữ liệu dim_gold_price...
+[2026-11-03T18:04:30.540+0700] {subprocess.py:93} INFO -     [DIM COORD] Thực thi UPSERT thành công cho loại hình: 'Vàng SJC'
+[2026-11-03T18:04:30.540+0700] {subprocess.py:93} INFO -     [DIM COORD] Thực thi UPSERT thành công cho loại hình: 'Vàng nhẫn tròn trơn'
+[2026-11-03T18:04:30.540+0700] {subprocess.py:93} INFO -  [HOÀN THÀNH] Tiến trình xử lý kết thúc thành công.
+[2026-11-03T18:04:30.540+0700] {subprocess.py:93} INFO - ====================================================================
+[2026-11-03T18:04:30.540+0700] {subprocess.py:93} INFO - 
+[2026-11-03T18:04:30.564+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,564 - [MASTER] - >>> Đang kích hoạt: 4. Create Hash & Track...
+[2026-11-03T18:04:30.642+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,642 - ========== BẮT ĐẦU HASH | RUN_ID: 20261103_BTMC ==========
+[2026-11-03T18:04:30.682+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,682 - [1] Không thay đổi so với lần trước.
+[2026-11-03T18:04:30.707+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,707 - [2] Không thay đổi so với lần trước.
+[2026-11-03T18:04:30.707+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,707 - ========== HOÀN TẤT HASH ==========
+[2026-11-03T18:04:30.727+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,727 - [MASTER] - >>> Đang kích hoạt: 5. SCD Type 2 Logic...
+[2026-11-03T18:04:30.787+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,787 - ========== BẮT ĐẦU LOAD HISTORY (SCD2) | RUN_ID: 20261103_BTMC ==========
+[2026-11-03T18:04:30.801+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,801 - Không có biến động giá nào cần ghi nhận (is_changed = 0). Bỏ qua SCD2.
+[2026-11-03T18:04:30.819+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:30,818 - [MASTER] - >>> Đang kích hoạt: 6. Output Final Backup...
+[2026-11-03T18:04:31.095+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,095 - ========== BẮT ĐẦU TIẾN TRÌNH SAO LƯU DATA LẠNH (RUN_ID: 20261103_BTMC) ==========
+[2026-11-03T18:04:31.153+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,153 -  -> [THÀNH CÔNG] Đã backup 8 bản ghi RAW.
+[2026-11-03T18:04:31.206+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,206 -  -> [THÀNH CÔNG] Đã xuất 2 bản ghi Snapshot phục vụ BI.
+[2026-11-03T18:04:31.219+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,219 -  -> [THÀNH CÔNG] Đã backup 8 bản ghi LỊCH SỬ mới sinh ra.
+[2026-11-03T18:04:31.220+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,219 - ========== TIẾN TRÌNH SAO LƯU HOÀN TẤT ==========
+[2026-11-03T18:04:31.264+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,264 - [MASTER] - --- HOÀN TẤT TRỌN VẸN NGÀY 20261103 ---
+[2026-11-03T18:04:31.265+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,264 - [MASTER] - ==================================================
+[2026-11-03T18:04:31.265+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,264 - [MASTER] -  [HOÀN TẤT] CHIẾN DỊCH CHẠY BACKFILL KẾT THÚC.
+[2026-11-03T18:04:31.265+0700] {subprocess.py:93} INFO - 2026-11-03 18:04:31,264 - [MASTER] - ==================================================
+[2026-11-03T18:04:31.271+0700] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-11-03T18:04:31.271+0700] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-11-03T18:04:31.279+0700] {taskinstance.py:1205} INFO - Marking task as SUCCESS. dag_id=btmc_gold_pipeline_daily, task_id=trigger_master_pipeline, execution_date=20261103T110427, start_date=20261103T110429, end_date=20261103T110431
+[2026-11-03T18:04:31.291+0700] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-11-03T18:04:31.297+0700] {taskinstance.py:3482} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-11-03T18:04:31.297+0700] {local_task_job_runner.py:222} INFO - ::endgroup::

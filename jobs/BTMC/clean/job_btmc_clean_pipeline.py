@@ -5,7 +5,6 @@ import logging
 from datetime import datetime
 from database.oop_connection import DatabaseManagerOOP
 
-# Kéo 4 cỗ máy xử lý OOP vào hệ thống
 from clean.sites.BTMC.oop_btmc_cleaner import BtmcCleanerOOP
 from clean.sites.BTMC.oop_btmc_validate_basic import BtmcValidateBasicOOP
 from clean.sites.BTMC.oop_btmc_normalizer import BtmcNormalizerOOP
@@ -29,7 +28,6 @@ class JobBtmcCleanPipeline:
         args = parser.parse_known_args()[0]
         run_id = args.run_id
 
-        # Lấy dữ liệu mạng thô nguyên bản từ raw_gold_price
         query = """
             SELECT raw_id, store_id, source_url, raw_payload 
             FROM raw_gold_price 
@@ -56,7 +54,6 @@ class JobBtmcCleanPipeline:
         print(f"\n [PIPELINE START] Khởi động luồng làm sạch cho RUN_ID: {run_id}")
         print(f"--------------------------------------------------------------------")
         
-        # Cấu trúc lưu trữ trạng thái cuối cùng để chuẩn bị ghi DB
         final_products = [
             {'gold_type_id': 1, 'gold_type_name': 'Vàng SJC', 'buy_price': None, 'sell_price': None, 'quality_flag': 'good', 'keys': ('sjcmua', 'sjcban')},
             {'gold_type_id': 2, 'gold_type_name': 'Vàng nhẫn tròn trơn', 'buy_price': None, 'sell_price': None, 'quality_flag': 'good', 'keys': ('btmcvangnhanmua', 'btmcvangnhanban')}
@@ -74,7 +71,7 @@ class JobBtmcCleanPipeline:
             cleaned_data = {}
 
         # ==========================================
-        # BƯỚC 2: VALIDATE BASIC (Bắt rỗng, null, sai format)
+        # BƯỚC 2: VALIDATE BASIC
         # ==========================================
         sjc_payload = json.dumps({'sjcmua': cleaned_data.get('sjcmua'), 'sjcban': cleaned_data.get('sjcban'), 'btmcvangnhanmua': '1', 'btmcvangnhanban': '1'})
         nhan_payload = json.dumps({'sjcmua': '1', 'sjcban': '1', 'btmcvangnhanmua': cleaned_data.get('btmcvangnhanmua'), 'btmcvangnhanban': cleaned_data.get('btmcvangnhanban')})
@@ -91,11 +88,10 @@ class JobBtmcCleanPipeline:
             print(f" [2/4]  Validate Basic     -> Hoàn tất kiểm tra định dạng (SJC: {'OK' if sjc_basic_ok else 'MISSING'} | Nhẫn: {'OK' if nhan_basic_ok else 'MISSING'}).")
 
         # ==========================================
-        # BƯỚC 3: NORMALIZE (CHỈ ÉP KIỂU SẢN PHẨM ĐÃ PASS BƯỚC 2)
+        # BƯỚC 3: NORMALIZE
         # ==========================================
         valid_data_to_normalize = {}
         for prod in final_products:
-            # Lọc phân luồng: Bỏ qua đồ hư hỏng (missing), chỉ gắp đồ sạch (good) nhét vào Normalizer
             if prod['quality_flag'] != 'missing':
                 valid_data_to_normalize[prod['keys'][0]] = cleaned_data.get(prod['keys'][0])
                 valid_data_to_normalize[prod['keys'][1]] = cleaned_data.get(prod['keys'][1])
@@ -111,7 +107,7 @@ class JobBtmcCleanPipeline:
             print(" [3/4]  Normalize Price    -> Hoàn tất chuẩn hoá số nguyên.")
 
         # ==========================================
-        # BƯỚC 4: VALIDATE BUSINESS (LOGIC GIÁ CẢ)
+        # BƯỚC 4: VALIDATE BUSINESS
         # ==========================================
         has_valid_data = any(p['quality_flag'] != 'missing' for p in final_products)
         
@@ -142,6 +138,13 @@ class JobBtmcCleanPipeline:
         stg_success = self.save_gold_staging_data(run_id, raw_id, store_id, source_url, data_date, final_products)
         dim_success = self.save_gold_dim_data(data_date, final_products)
         
+        # [SỬA LỖI] KIỂM TRA CHÉO: Phải có ít nhất 1 sản phẩm 'good' mới báo cáo luồng thành công
+        has_good_data = any(p['quality_flag'] == 'good' for p in final_products)
+        
+        if not has_good_data:
+            print(f" [THẤT BẠI] Toàn bộ dữ liệu đều hỏng hoặc thiếu. Hủy luồng báo lỗi về Master.")
+            sys.exit(1)
+            
         if stg_success and dim_success:
             print(f" [HOÀN THÀNH] Tiến trình xử lý kết thúc thành công.")
             print(f"====================================================================\n")
@@ -191,7 +194,8 @@ class JobBtmcCleanPipeline:
         now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         for prod in product_results:
-            if prod['quality_flag'] != 'missing':
+            # [SỬA LỖI] Đảm bảo chỉ đẩy dữ liệu 'good' sang Dim (Chặn dữ liệu suspicious)
+            if prod['quality_flag'] == 'good':
                 try:
                     dim_values = (data_date, self.store_name, prod['gold_type_name'], prod['buy_price'], prod['sell_price'], 'VND/lượng', now_str)
                     self.db.execute_query(dim_upsert_query, dim_values)
